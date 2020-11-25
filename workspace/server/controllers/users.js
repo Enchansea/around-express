@@ -17,7 +17,7 @@ const getUser = (req, res) => getDataFromFile(dataPath)
     }
     res.status(404).send({ message: 'User ID not found' });
   })
-  .catch((err) => res.status(400).send(err));
+  .catch((err) => res.status(500).send(err));
 
 module.exports = {
   getUsers,
