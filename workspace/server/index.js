@@ -1,4 +1,7 @@
 const express = require('express');
+const mongoose = require('mongoose');
+
+const bodyParser = require('body-parser');
 
 const app = express();
 const { PORT = 3000 } = process.env;
@@ -6,8 +9,15 @@ const path = require('path');
 const cardRouter = require('./routers/cards.js');
 const userRouter = require('./routers/users.js');
 
-app.use(express.static(path.join(__dirname, 'public')));
+// connect to the MongoDB server
+mongoose.connect('mongodb://localhost:27017/aroundb', {
+  useNewUrlParser: true,
+  useCreateIndex: true,
+  useFindAndModify: false,
+});
 
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(bodyParser.json);
 app.use('/', cardRouter);
 app.use('/', userRouter);
 
