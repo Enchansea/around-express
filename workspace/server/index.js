@@ -25,7 +25,7 @@ app.use((req, res, next) => {
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
-app.use('/cards', cardRouter);
+app.use('/', cardRouter);
 app.use('/', userRouter);
 
 app.get('*', (req, res) => {
