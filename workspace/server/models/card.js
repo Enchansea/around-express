@@ -1,11 +1,12 @@
 const mongoose = require('mongoose');
+const validator = require('validator');
 
 const cardSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: [true, 'field "name" must be fulfilled'],
-    minlength: [2, 'min "name" field length - 2'],
-    maxlength: [30, 'max "name" field length - 30'],
+    required: true,
+    minlength: 2,
+    maxlength: 30,
   },
   link: {
     type: String,
