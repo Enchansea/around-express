@@ -8,7 +8,7 @@ const {
 
 userRouter.get('/users', getUsers);
 userRouter.get('/users/:id', getUser);
-userRouter.post('/users', createUser);
+userRouter.post('/signup', createUser);
 userRouter.patch('/users/me', updateUser);
 
 module.exports = userRouter;

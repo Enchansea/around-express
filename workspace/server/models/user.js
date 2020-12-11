@@ -16,7 +16,7 @@ const userSchema = new mongoose.Schema({
   avatar: {
     type: String,
     required: true,
-    validate: /^https?:\/\/(www\.)?[(.*)][#?]$/i,
+    validate: /^https?:\/\/(www\.)?(.*)/i,
   },
 });
 

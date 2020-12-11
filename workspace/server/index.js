@@ -16,10 +16,17 @@ mongoose.connect('mongodb://localhost:27017/aroundb', {
   useFindAndModify: false,
 });
 
+app.use((req, res, next) => {
+  req.user = {
+    _id: '5fd300337cfd804530592f3a',
+  };
+  next();
+});
+
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(bodyParser.json);
+app.use(bodyParser.json());
 app.use('/cards', cardRouter);
-app.use('/users', userRouter);
+app.use('/', userRouter);
 
 app.get('*', (req, res) => {
   res.send({ message: 'Requested resource not found' });
