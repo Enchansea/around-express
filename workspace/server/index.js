@@ -1,11 +1,11 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const helmet = require('helmet');
 
 const bodyParser = require('body-parser');
 
 const app = express();
 const { PORT = 3000 } = process.env;
-const path = require('path');
 const cardRouter = require('./routers/cards.js');
 const userRouter = require('./routers/users.js');
 
@@ -23,10 +23,10 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
 app.use('/', cardRouter);
 app.use('/', userRouter);
+app.use(helmet());
 
 app.get('*', (req, res) => {
   res.send({ message: 'Requested resource not found' });

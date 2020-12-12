@@ -2,18 +2,18 @@ const User = require('../models/user');
 
 const getUsers = (req, res) => User.find({})
   .then((users) => res.status(200).send(users))
-  .catch((err) => res.status(500).send(err));
+  .catch((err) => res.status(400).send(err));
 
 const getUser = (req, res) => User.find({ _id: req.params.id })
   .then((users) => users.find((user) => user._id === req.params.id))
   // eslint-disable-next-line consistent-return
-  .then((user) => {
-    if (user) {
-      return res.status(200).send(user);
+  .then((user) => res.status(200).send(user))
+  .catch((err) => {
+    if (err.name === 'CastError') {
+      res.status(400).send({ message: err });
     }
-    res.status(404).send({ message: 'User ID not found' });
-  })
-  .catch((err) => res.status(500).send(err));
+    res.status(500).send({ message: err });
+  });
 
 const createUser = (req, res) => {
   const { name, about, avatar } = req.body;
