@@ -13,7 +13,6 @@ const cardSchema = new mongoose.Schema({
     required: true,
     minlength: 2,
     validate: {
-      // eslint-disable-next-line no-undef
       validator: (v) => validator.isURL(v, { protocols: ['http', 'https', 'ftp'], require_tld: true, require_protocol: true }),
       message: 'field "link" must be a valid url-address',
     },
