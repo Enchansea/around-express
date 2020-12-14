@@ -4,16 +4,22 @@ const getUsers = (req, res) => User.find({})
   .then((users) => res.status(200).send(users))
   .catch((err) => res.status(400).send(err));
 
-const getUser = (req, res) => User.find({ _id: req.params.id })
-  .then((users) => users.find((user) => user._id === req.params.id))
-  // eslint-disable-next-line consistent-return
-  .then((user) => res.status(200).send(user))
-  .catch((err) => {
-    if (err.name === 'CastError') {
-      res.status(400).send({ message: err });
-    }
-    res.status(500).send({ message: err });
-  });
+const getUser = (req, res) => {
+  User.findById(req.params.id)
+    .then((user) => {
+      if (!user) {
+        res.status(404).send({ message: 'No such user found' });
+      }
+      res.status(200).send(user);
+    })
+    .catch((err) => {
+      if (err.name === 'CastError') {
+        res.status(400).send({ message: 'Bad Request' });
+      } else {
+        res.status(500).send({ message: 'Internal Server Error' });
+      }
+    });
+};
 
 const createUser = (req, res) => {
   const { name, about, avatar } = req.body;
