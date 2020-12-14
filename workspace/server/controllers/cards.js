@@ -25,7 +25,7 @@ const deleteCard = (req, res) => {
   Card.findByIdAndRemove(req.params.cardId)
     .then((card) => {
       if (!card) {
-        res.status(404).send({ message: 'No such card found'});
+        res.status(404).send({ message: 'No such card found' });
       }
       res.status(200).send(card);
     })
